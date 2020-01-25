@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Products</title>
+        <link rel=stylesheet href=/static/style.css type=text/css>
+    </head>
+    <body>
+        <form action="{% url 'products' %}" method="POST">
+            {% csrf_token %}
+            <button type="submit">Products</button>
+        </form>
+
+    {% if products_list %}
+        {% if is_paginated %}
+    <nav class="d-flex justify-content-center" aria-label="bottomPaginator">
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+            <li>
+                <a class="page-link" href="?page=1" tabindex="-1">First</a>
+            </li>
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1">Previous</a>
+            </li>
+            {% endif %}
+
+            <li>
+                <a class="active" href="?page={{ page_obj.number }}">{{ page_obj.number }}<span>(current)</span></a>
+            </li>
+
+            {% if page_obj.has_next %}
+            <li>
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+            </li>
+            <li>
+                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+        {% endif%}
+        <table>
+                    <tr>
+                        <th> </th>
+                        <th>Category</th>
+                        <th>Title</th>
+                        <th>Price</th>
+                        <th>Sizes</th>
+                        <th>Description</th>
+                    </tr>
+                    {% for product in products_list %}
+                    <tr>
+                       <td><img src={{product.images}}></td>
+                        <td>{{ product.category }}</td>
+                        <td>{{ product.title }}</td>
+                        <td>${{ product.price }}</td>
+                        <td>{{ product.sizes }}</td>
+                        <td>{{product.description}}</td>
+                    </tr>
+                    {% endfor %}
+
+                </table>
+
+    {% else %}
+        <p>No products</p>
+    {% endif %}
+    </body>
+</html>

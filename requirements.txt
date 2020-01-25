@@ -1,0 +1,7 @@
+celery==4.4.0
+channels
+channels-redis
+Django==3.0
+redis==3.3.11
+Scrapy==1.8.0
+scrapy-redis==0.6.8
