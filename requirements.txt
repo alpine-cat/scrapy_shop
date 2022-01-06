@@ -1,4 +1,4 @@
-celery==4.4.0
+celery==5.2.2
 channels
 channels-redis
 Django==3.0
